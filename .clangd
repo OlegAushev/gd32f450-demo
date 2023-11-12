@@ -1,0 +1,10 @@
+CompileFlags:
+  Remove: -std=c++23
+---
+If:
+  PathExclude: [.*\.c]
+CompileFlags:
+  Add: [-std=c++2b, -ferror-limit=0]
+---
+Diagnostics:
+  Suppress: [anon_bitfield_qualifiers] 
