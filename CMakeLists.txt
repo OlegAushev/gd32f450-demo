@@ -4,7 +4,7 @@ cmake_minimum_required(VERSION 3.12)
 list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_LIST_DIR}/cmake)
 include(gcc-arm-none-eabi)
 
-project(apm32f407-mini-template VERSION 0.1)
+project(gd32f450-demo VERSION 0.1)
 enable_language(C CXX ASM)
 
 list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_LIST_DIR}/cmake/git-info)
@@ -49,28 +49,25 @@ GitInfoSetup()
 
 ################################################################################
 # Microcontroller Information
-set(mcu_family APM32F4xx)
-set(mcu_model APM32F40X)
-set(mcu_devboard APM32F407_MINI)
+set(mcu_family GD32F4xx)
+set(mcu_model GD32F450)
+set(mcu_devboard GD32F450_CUSTOM_BOARD)
 set(cpu_parameters
     -mcpu=cortex-m4
     -mthumb
     -mfpu=fpv4-sp-d16
     -mfloat-abi=hard)
 
-set(mcu_startup_script ${PROJECT_SOURCE_DIR}/src/startup_apm32f40x.s)
-set(mcu_linker_script ${PROJECT_SOURCE_DIR}/APM32F4xxxG_FLASH.ld)
+set(mcu_startup_script ${PROJECT_SOURCE_DIR}/src/startup_gd32f450_470.s)
+set(mcu_linker_script ${PROJECT_SOURCE_DIR}/GD32F450_xE.ld)
 
 ################################################################################
 # Headers and Sources
 set(sdk_incdirs
-    ${PROJECT_SOURCE_DIR}/drivers/${mcu_family}_StdPeriphDriver
-    ${PROJECT_SOURCE_DIR}/drivers/${mcu_family}_StdPeriphDriver/inc
-    ${PROJECT_SOURCE_DIR}/drivers/CMSIS/Include
-    ${PROJECT_SOURCE_DIR}/drivers/CMSIS/DSP/Include
-    ${PROJECT_SOURCE_DIR}/drivers/Boards/
-    ${PROJECT_SOURCE_DIR}/drivers/Boards/Board_${mcu_devboard}/inc
-    ${PROJECT_SOURCE_DIR}/drivers/Device/Geehy/${mcu_family}/Include
+    ${PROJECT_SOURCE_DIR}/drivers/${mcu_family}_standard_peripheral
+    ${PROJECT_SOURCE_DIR}/drivers/${mcu_family}_standard_peripheral/Include
+    ${PROJECT_SOURCE_DIR}/drivers/CMSIS/GD/${mcu_family}/Include
+    ${PROJECT_SOURCE_DIR}/drivers/CMSIS/
 )
 
 message(STATUS "INC DIRS: ${sdk_incdirs}")

@@ -6,7 +6,7 @@
             "label": "CMake: build",
             "command": "build",
             "targets": [
-                "apm32f407-mini-template"
+                "gd32f450-demo"
             ],
             "group": {
                 "kind": "build",
