@@ -1,0 +1,6 @@
+[submodule "include/emblib"]
+	path = include/emblib
+	url = git@github.com:OlegAushev/emblib.git
+[submodule "include/mcudrv"]
+	path = include/mcudrv
+	url = git@github.com:OlegAushev/mcudrv.git

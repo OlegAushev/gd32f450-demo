@@ -66,8 +66,10 @@ set(mcu_linker_script ${PROJECT_SOURCE_DIR}/GD32F450_xE.ld)
 set(sdk_incdirs
     ${PROJECT_SOURCE_DIR}/drivers/${mcu_family}_standard_peripheral
     ${PROJECT_SOURCE_DIR}/drivers/${mcu_family}_standard_peripheral/Include
-    ${PROJECT_SOURCE_DIR}/drivers/CMSIS/GD/${mcu_family}/Include
     ${PROJECT_SOURCE_DIR}/drivers/CMSIS/
+    ${PROJECT_SOURCE_DIR}/drivers/CMSIS/Include
+    ${PROJECT_SOURCE_DIR}/drivers/CMSIS/GD/${mcu_family}/Include
+    ${PROJECT_SOURCE_DIR}/drivers/CMSIS/DSP/Include
 )
 
 message(STATUS "INC DIRS: ${sdk_incdirs}")
@@ -110,6 +112,7 @@ target_compile_definitions(${executable} PRIVATE
     ${mcu_family}
     ${mcu_devboard}
     EMBLIB_STM32
+    MCUDRV_GD32
     BUILD_OPTIONS="${build_options}"
 )
 
@@ -150,10 +153,11 @@ target_compile_options(${executable} PRIVATE
     -Wundef
     -fno-common
     -Wno-unused-parameter
-    -Wno-sign-compare
     -Wno-psabi  # suppress warning "... changed in GCC 7.1"
     $<$<COMPILE_LANGUAGE:CXX>:
         -Wconversion
+        -Wsign-conversion
+        -Wsign-compare
         -Wno-volatile
         -Wold-style-cast
         -Wuseless-cast
@@ -187,9 +191,9 @@ target_link_directories(${executable} PRIVATE
     ${PROJECT_SOURCE_DIR}/drivers/CMSIS/DSP/Lib/GCC
 )
 
-# target_link_libraries(${executable}
-#     libarm_cortexM4lf_math.a
-# )
+target_link_libraries(${executable}
+    libarm_cortexM4lf_math.a
+)
 
 ################################################################################
 # Misc Options and Post-build Tasks
